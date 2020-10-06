@@ -6,23 +6,28 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import Menu from './MenuComponent';
 import Dishdetail from './DishDetailComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
+import About from './AboutComponent';
 
 
 const MenuNavigator = createStackNavigator()
+
+const headerOptions = {
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+        color: "#fff"            
+    }
+};
+
 
 function MenuNavigatorScreen() {
     return(
         <MenuNavigator.Navigator
             initialRouteName='Menu'
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: "#512DA8"
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                    color: "#fff"            
-                }
-            }}
+            screenOptions={headerOptions}
         >
             <MenuNavigator.Screen
                 name="Menu"
@@ -43,15 +48,7 @@ function HomeNavigatorScreen() {
     return(
         <HomeNavigator.Navigator
             initialRouteName='Menu'
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: "#512DA8"
-                },
-                headerTintColor: "#fff",
-                headerTitleStyle: {
-                    color: "#fff"            
-                }
-            }}
+            screenOptions={headerOptions}
         >
             <HomeNavigator.Screen 
                 name='Home'
@@ -60,6 +57,39 @@ function HomeNavigatorScreen() {
         </HomeNavigator.Navigator>
     );
 } 
+
+const ContactNavigator = createStackNavigator();
+
+function ContactNavigatorScreen() {
+    return(
+        <ContactNavigator.Navigator
+            initialRouteName='Menu'
+            screenOptions={headerOptions}
+        >
+            <ContactNavigator.Screen
+                name='Contact Us'
+                component={Contact} 
+            />
+        </ContactNavigator.Navigator>
+    );
+}
+
+
+const AboutNavigator = createStackNavigator();
+
+function AboutNavigatorScreen() {
+    return(
+        <AboutNavigator.Navigator
+            initialRouteName='Menu'
+            screenOptions={headerOptions}
+        >
+            <AboutNavigator.Screen
+                name='About Us'
+                component={About}
+            />
+        </AboutNavigator.Navigator>
+    );
+}
 
 const MainNavigator = createDrawerNavigator();
 
@@ -76,8 +106,16 @@ function MainNavigatorDrawer(){
                 component={HomeNavigatorScreen}
             />
             <MainNavigator.Screen 
+                name='About Us'
+                component={AboutNavigatorScreen}
+            />
+            <MainNavigator.Screen 
                 name='Menu'
                 component={MenuNavigatorScreen}
+            />
+            <MainNavigator.Screen 
+                name='Contact Us'
+                component={ContactNavigatorScreen}
             />
         </MainNavigator.Navigator>
     );
