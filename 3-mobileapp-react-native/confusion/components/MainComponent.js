@@ -9,6 +9,22 @@ import Dishdetail from './DishDetailComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+
+const mapStateToProps = state => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    fetchDishes: () => dispatch(fetchDishes()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders()),
+});
+
 
 const headerOptions = {
     headerStyle: {
@@ -190,16 +206,23 @@ function MainNavigatorDrawer(){
 
 class Main extends Component {
 
-  render() {
-    return (
-        <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
-            <NavigationContainer>
-                <MainNavigatorDrawer />
-            </NavigationContainer>            
-        </View>
+    componentDidMount() {
+        this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
+        this.props.fetchLeaders();
+    }
 
-    );
-  }
+    render() {
+        return (
+            <View style={{flex: 1, paddingTop: Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight }}>
+                <NavigationContainer>
+                    <MainNavigatorDrawer />
+                </NavigationContainer>            
+            </View>
+
+        );
+    }
 }
   
 
@@ -227,4 +250,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
