@@ -9,6 +9,7 @@ import Dishdetail from './DishDetailComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import Reservation from './ReservationComponent';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
@@ -81,6 +82,7 @@ const HomeNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
 const MenuNavigator = createStackNavigator()
 const ContactNavigator = createStackNavigator();
+const ReservationNavigator = createStackNavigator();
 
 const MainNavigator = createDrawerNavigator();
 
@@ -159,6 +161,22 @@ function ContactNavigatorScreen({ navigation }) {
     );
 }
 
+function ReservationNavigatorScreen({ navigation }) {
+    return(
+        <ContactNavigator.Navigator
+            initialRouteName='Menu'
+            screenOptions={headerOptions}
+        >
+            <ContactNavigator.Screen
+                name='Reserve Table'
+                component={Reservation} 
+                options={{
+                    headerLeft: () => <StackNavigatorIcon navigation={navigation} />
+                }}
+            />
+        </ContactNavigator.Navigator>
+    );
+}
 
 
 
@@ -197,6 +215,13 @@ function MainNavigatorDrawer(){
                 component={ContactNavigatorScreen}
                 options={{
                     drawerIcon: () => <DrawerNavigatorIcon name='address-card' size={22} />
+                }}
+            />
+            <MainNavigator.Screen 
+                name='Reserve Table'
+                component={ReservationNavigatorScreen}
+                options={{
+                    drawerIcon: () => <DrawerNavigatorIcon name='cutlery' size={24} />
                 }}
             />
         </MainNavigator.Navigator>
