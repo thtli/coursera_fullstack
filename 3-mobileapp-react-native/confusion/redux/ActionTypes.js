@@ -11,3 +11,4 @@ export const ADD_LEADERS = 'ADD_LEADERS';
 export const LEADERS_FAILED = 'LEADERS_FAILED';
 export const POST_FAVORITE = 'POST_FAVORITE'; // post to server
 export const ADD_FAVORITE = 'ADD_FAVORITE'; // update redux store
+export const ADD_COMMENT = 'ADD_COMMENT'; // user submit comment
