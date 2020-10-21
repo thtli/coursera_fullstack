@@ -10,6 +10,7 @@ import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoriteComponent';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
@@ -83,6 +84,7 @@ const AboutNavigator = createStackNavigator();
 const MenuNavigator = createStackNavigator()
 const ContactNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
+const FavoritesNavigator = createStackNavigator();
 
 const MainNavigator = createDrawerNavigator();
 
@@ -128,16 +130,16 @@ function MenuNavigatorScreen({ navigation }) {
             screenOptions={headerOptions}
         >
             <MenuNavigator.Screen
-                name="Menu"
+                name='Menu'
                 component={Menu}
                 options={{
                     headerLeft: () => <StackNavigatorIcon navigation={navigation} />
                 }}
             />
             <MenuNavigator.Screen
-                name="Dishdetail"
+                name='Dishdetail'
                 component={Dishdetail}
-                options={{ headerTitle: "Dish Detail"}}
+                options={{ headerTitle: 'Dish Detail'}}
             />            
         </MenuNavigator.Navigator>
     );
@@ -163,21 +165,41 @@ function ContactNavigatorScreen({ navigation }) {
 
 function ReservationNavigatorScreen({ navigation }) {
     return(
-        <ContactNavigator.Navigator
+        <ReservationNavigator.Navigator
             initialRouteName='Menu'
             screenOptions={headerOptions}
         >
-            <ContactNavigator.Screen
+            <ReservationNavigator.Screen
                 name='Reserve Table'
                 component={Reservation} 
                 options={{
                     headerLeft: () => <StackNavigatorIcon navigation={navigation} />
                 }}
             />
-        </ContactNavigator.Navigator>
+        </ReservationNavigator.Navigator>
     );
 }
 
+function FavoritesNavigatorScreen({ navigation }) {
+    return(
+        <FavoritesNavigator.Navigator
+            screenOptions={headerOptions}
+        >
+            <FavoritesNavigator.Screen
+                name='My Favorites'
+                component={Favorites} 
+                options={{
+                    headerLeft: () => <StackNavigatorIcon navigation={navigation} />
+                }}
+            />
+            <FavoritesNavigator.Screen
+                name='Dishdetail'
+                component={Dishdetail}
+                options={{ headerTitle: 'Dish Detail'}}
+            /> 
+        </FavoritesNavigator.Navigator>
+    );
+}
 
 
 function MainNavigatorDrawer(){
@@ -215,6 +237,13 @@ function MainNavigatorDrawer(){
                 component={ContactNavigatorScreen}
                 options={{
                     drawerIcon: () => <DrawerNavigatorIcon name='address-card' size={22} />
+                }}
+            />
+            <MainNavigator.Screen 
+                name='My Favorites'
+                component={FavoritesNavigatorScreen}
+                options={{
+                    drawerIcon: () => <DrawerNavigatorIcon name='heart' size={24} />
                 }}
             />
             <MainNavigator.Screen 
