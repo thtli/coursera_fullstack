@@ -11,6 +11,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
+import Login from './LoginComponent';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
@@ -85,6 +86,7 @@ const MenuNavigator = createStackNavigator()
 const ContactNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
 const FavoritesNavigator = createStackNavigator();
+const LoginNavigator = createStackNavigator(); 
 
 const MainNavigator = createDrawerNavigator();
 
@@ -201,6 +203,22 @@ function FavoritesNavigatorScreen({ navigation }) {
     );
 }
 
+function LoginNavigatorScreen({ navigation }) {
+    return(
+        <LoginNavigator.Navigator
+            screenOptions={headerOptions}
+        >
+            <FavoritesNavigator.Screen
+                name='Login'
+                component={Login} 
+                options={{
+                    headerLeft: () => <StackNavigatorIcon navigation={navigation} />
+                }}
+            />
+        </LoginNavigator.Navigator>
+    );
+}
+
 
 function MainNavigatorDrawer(){
     return(
@@ -211,6 +229,13 @@ function MainNavigatorDrawer(){
             }}
             drawerContent={props => <CustomDrawerContentComponent {...props} />}
         >
+            <MainNavigator.Screen 
+                name='Login'
+                component={LoginNavigatorScreen}
+                options={{
+                    drawerIcon: () => <DrawerNavigatorIcon name='sign-in' />
+                }}
+            />
             <MainNavigator.Screen 
                 name='Home'
                 component={HomeNavigatorScreen}
